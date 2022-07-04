@@ -1,7 +1,12 @@
-type User = {
-    uuid?: string;
-    username: string;
-    password?: string;
+export class User {
+    id?: string
+    name: string
+    email: string
+    password?: string
+    created_at?: Date
+    updated_at?: Date
+    constructor(data:Object){
+        Object.assign(this,data);
+    }
 }
-
-export { User };
+  
