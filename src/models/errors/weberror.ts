@@ -1,11 +1,12 @@
 class WebError {
-    public message: string;
-    public code: number;
+  public message: string;
 
-    constructor (message: string, code: number) {
-        this.message = message;
-        this.code = code;
-    }   
+  public code: number;
+
+  constructor(message: string, code: number) {
+    this.message = message;
+    this.code = code;
+  }
 }
 
 export { WebError };

@@ -7,6 +7,6 @@ userRoutes.get('/user', userControllers.findAllUser);
 userRoutes.post('/user', userControllers.createUser);
 userRoutes.delete('/user/:id', userControllers.deleteUser);
 userRoutes.get('/user/:id', userControllers.findUserById);
-userRoutes.patch('/user/:id', userControllers.userUpdate);
+userRoutes.patch('/user/:id', userControllers.updateUser);
 
 export { userRoutes };
