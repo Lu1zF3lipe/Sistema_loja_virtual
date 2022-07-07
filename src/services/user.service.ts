@@ -1,6 +1,7 @@
 import { BadRequestError } from '../models/errors/badrequest';
 import { NotFoundError } from '../models/errors/notfound';
 import { CreateUserDTO } from '../models/user/dto/create-user.dto';
+import { LoginUserDTO } from '../models/user/dto/credentials-user.dto';
 import { UpdateUserDTO } from '../models/user/dto/update-user.dto';
 import { userRepository } from '../repositories/user.repository';
 import { validationService } from './validation.service';
@@ -89,6 +90,16 @@ class UserService {
       throw new NotFoundError('not found user with this id');
     }
     return deletedUser;
+  }
+
+  public static async findUserByEmailAndPassword(credentials: LoginUserDTO) {
+    await validationService.ValidationObject(credentials);
+    const user = await userRepository.findUserByEmail(credentials.email);
+    if (!user.id || !validationService.ValidateHash(credentials.password, user.password)) {
+      throw new BadRequestError('email or password is incorrect');
+    }
+
+    return user;
   }
 }
 

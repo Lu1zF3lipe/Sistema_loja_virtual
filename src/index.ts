@@ -1,9 +1,11 @@
 import 'express-async-errors';
+import 'dotenv/config';
 import express from 'express';
 import { errorHandler } from './middlewares/error-handler.middlewares';
 import { statusRoute } from './routes/status.routes';
 import { userRoutes } from './routes/user.routes';
 import { prisma } from './db';
+import { authenticatioRoutes } from './routes/authentication.routes';
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(statusRoute);
 app.use(userRoutes);
+app.use(authenticatioRoutes);
 
 app.use(errorHandler);
 

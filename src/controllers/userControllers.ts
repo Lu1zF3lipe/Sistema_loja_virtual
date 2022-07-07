@@ -16,22 +16,26 @@ class userControllers {
     response.status(201).send(instanceToPlain(user));
   }
 
-  public static async deleteUser(request: Request<{id: string}>, response: Response) {
-    const deletedUser = await UserService.deleteUser(request.params.id);
+  public static async deleteUser(request: Request, response: Response) {
+    const deletedUser = await UserService.deleteUser(request.userid);
     response.status(200).json(instanceToPlain(deletedUser));
   }
 
-  public static async findUserById(request: Request<{id: string}>, response: Response) {
+  public static async findUserById(request: Request, response: Response) {
     const user = await UserService.findUserById(request.params.id);
     response.status(200).json(instanceToPlain(user));
   }
 
-  public static async updateUser(request: Request<{id: string}>, response: Response) {
-    const { id } = request.params;
+  public static async updateUser(request: Request, response: Response) {
     const updateUserDTO = plainToInstance(UpdateUserDTO, request.body);
 
-    const updatedUser = await UserService.updateUser(id, updateUserDTO);
+    const updatedUser = await UserService.updateUser(request.userid, updateUserDTO);
     response.status(200).json(instanceToPlain(updatedUser));
+  }
+
+  public static async currentUser(request: Request, response: Response) {
+    const user = await UserService.findUserById(request.userid);
+    response.status(200).json(instanceToPlain(user));
   }
 }
 
